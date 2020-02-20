@@ -4,8 +4,7 @@ require 'json';
 require './config/app_environment_variables.rb';
 
 class Search
-  attr_reader :search_term
-  attr_accessor :uri
+  attr_reader :search_term, :data
 
   BASE_URL = 'https://api.collection.cooperhewitt.org/rest/'
   S_METHOD = 'cooperhewitt.search.collection'
@@ -16,9 +15,8 @@ class Search
     @search_term = search_term
   end
 
-  def get_data
-    response = RestClient.get uri
-    JSON.parse(response)
+  def data
+    JSON.parse RestClient.get(uri)
   end
 
   private
