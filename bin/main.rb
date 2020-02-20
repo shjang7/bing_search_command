@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rest-client'
-require File.expand_path('../lib/search.rb')
-require File.expand_path('../lib/parse.rb')
+require './lib/search.rb';
+require './lib/parse.rb';
 
 def main
 end
