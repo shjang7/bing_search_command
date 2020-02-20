@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rest-client'
-require './lib/search.rb';
-require './lib/parse.rb';
+require File.expand_path('../lib/search.rb');
+require File.expand_path('../lib/parse.rb');
 
 def main
   if ARGV.empty?
@@ -9,16 +9,24 @@ def main
   else
     client = Search.new(ARGV)
     begin
-      res = client.search
+      res = client.data
     rescue RestClient::ExceptionWithResponse => e
       puts ("#{e}")
     end
   end
 
   unless res.nil?
-    searched_data = Parse.new(res)
-    print "#{searched_data[:title]} \n"
-    print "[LINK] #{searched_data[:link]} \n"
-    print "[DESCRIPTION] #{searched_data[:description]} \n"
+    puts 'How many do you want?'
+    number = STDIN.gets.chomp.to_i
+    parsed_data = Parse.new(res)
+    searched_results = parsed_data.result(number)
+    searched_results.each_with_index do |result, i|
+      print "##{i+1} \n"
+      print "#{result[:title]} \n"
+      print "#{result[:link]} \n"
+      print "#{result[:description]} \n\n"
+    end
   end
 end
+
+main

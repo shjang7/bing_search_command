@@ -3,8 +3,9 @@ require 'rubygems'
 require 'nokogiri'
 
 class Parse
-  def initialize(data)
-    @data = data
+  attr_accessor :raw_data, :page
+  def initialize(raw_data)
+    @raw_data = raw_data
   end
 
   def result(number)
@@ -21,9 +22,13 @@ class Parse
     data_list
   end
 
+  def page
+    @page ||= Nokogiri::HTML(raw_data)
+  end
+
   private
 
-  def data_list(i)
+  def convert_index(i)
     j = i
     j -= 1 if i > 4
     j -= 1 if i > 10
