@@ -26,12 +26,21 @@ def main
   end
 
   unless raw_data.nil?
-    searched_results = Parse.new(raw_data).result(number)
+    parsed_data = Parse.new(raw_data, number)
+    searched_results = parsed_data.result()
     searched_results.each_with_index do |result, i|
       print "##{i+1} \n"
       print "#{result[:title]} \n"
       print "#{result[:link]} \n"
-      print "#{result[:description]} \n\n"
+      if result[:images]
+        print "#{result[:a]} \n"
+        result[:images].each do |src|
+          print "#{src} \n"
+        end
+      else
+        print "#{result[:description]} \n"
+      end
+      print "\n"
     end
   end
 end
