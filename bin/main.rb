@@ -36,8 +36,10 @@ class BingSearch
   def parsed_data_print
     UiController.print_title(search_keywords.join(' '))
     case search_type
-    when 'images', 'videos'
+    when 'images'
       UiController.print_for_images(raw_data, search_count)
+    when 'videos'
+      UiController.print_for_videos(raw_data, search_count)
     else
       UiController.print_for_all(raw_data, search_count)
     end
