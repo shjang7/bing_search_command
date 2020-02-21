@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 require 'rest-client';
+require_relative './variables.rb'
 
 class Search
   attr_reader :search_term, :data, :search_type
   attr_accessor :uri
-
-  BASE_URL = 'https://www.bing.com/'
 
   def initialize(search_term, search_type)
     @search_term = search_term
@@ -22,12 +21,10 @@ class Search
 
   def type_of_search
     case search_type
-    when 1
+    when 'images', 'videos'
+      "#{search_type}/"
+    else
       ''
-    when 2
-      'images/'
-    when 3
-      'videos/'
     end
   end
 end
