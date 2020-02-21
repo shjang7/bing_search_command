@@ -35,28 +35,30 @@ class Main
   def parsed_data_print
     parsed_data = ParseAll.new(raw_data, search_count)
     searched_results = parsed_data.result()
+    print "search \"#{search_keyword}\": \n\n"
+    
     searched_results.each_with_index do |result, i|
-      print "##{i+1} \n"
+      puts "##{i+1}"
       result[:images] ? print_image(result) : print_text(result)
       print "\n"
     end
   end
 
   def print_all_caption(result)
-    print "#{result[:title]} \n"
-    print "#{result[:link]} \n"
+    puts "#{result[:title]}"
+    puts "#{result[:link]}"
   end
 
   def print_text(result)
     print_all_caption(result)
-    print "#{result[:description]} \n"
+    puts "#{result[:description]}"
   end
 
   def print_image(result)
     print_all_caption(result)
-    print "#{result[:a]} \n"
+    puts "#{result[:a]}"
     result[:images].each do |src|
-      print "#{src} \n"
+      puts "#{src}"
     end
   end
 
