@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 require 'rest-client';
-require 'json';
-require './config/app_environment_variables.rb';
+require_relative './variables.rb'
 
 class Search
-  attr_reader :search_term, :data
+  attr_reader :search_term, :data, :search_type
+  attr_accessor :uri
 
-  BASE_URL = 'https://api.collection.cooperhewitt.org/rest/'
-  S_METHOD = 'cooperhewitt.search.collection'
-  S_TYPE = 'medium'
-  S_ACCESS_TOKEN = ENV['COOPER_HEWITT_ACCESS_TOKEN']
-
-  def initialize(search_term)
+  def initialize(search_term, search_type)
     @search_term = search_term
+    @search_type = search_type
   end
 
   def data
-    JSON.parse RestClient.get(uri)
+    RestClient.get(uri)
   end
-
-  private
 
   def uri
-    @uri ||= "#{BASE_URL}#{search_query}"
+    print "#{BASE_URL}#{type_of_search}search?q=#{search_term} \n"
+    @uri ||= "#{BASE_URL}#{type_of_search}search?q=#{search_term}"
   end
 
-  def search_query
-    "?method=#{S_METHOD}&access_token=#{S_ACCESS_TOKEN}&#{S_TYPE}=#{search_term}&page=1&per_page=100"
+  def type_of_search
+    case search_type
+    when 'images', 'videos'
+      "#{search_type}/"
+    else
+      ''
+    end
   end
 end
