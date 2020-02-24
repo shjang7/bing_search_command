@@ -18,7 +18,7 @@ class BingSearch
     search_execution()
 
     unless raw_data.nil?
-      parsed_data_print()
+      print_parsed_data()
     end
   end
 
@@ -33,7 +33,7 @@ class BingSearch
     end
   end
 
-  def parsed_data_print
+  def print_parsed_data
     UiController.print_title(search_keywords.join(' '))
     case search_type
     when 'images'
