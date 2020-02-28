@@ -35,6 +35,7 @@ class BingSearch
 
   def print_parsed_data
     UiController.print_title(search_keywords.join(' '))
+
     case search_type
     when 'images'
       UiController.print_for_images(raw_data, search_count)

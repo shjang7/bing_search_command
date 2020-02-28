@@ -6,11 +6,11 @@ require_relative './parse_all.rb'
 module UiController
   class << self
     def print_title(word)
-      print "search \"#{word}\": \n"
+      puts "search \"#{word}\": "
     end
 
     def print_count_over(list_count, max_count, type)
-      print list_count > max_count ? "\nThe #{type} results can be showing only #{max_count} \n" : ""
+      puts list_count > max_count ? "\nThe #{type} results can be showing only #{max_count} " : ""
     end
 
     def print_for_images(raw_data, search_count)
@@ -24,7 +24,7 @@ module UiController
     def print_for_videos(raw_data, search_count)
       parsed_data = ParseVideos.new(raw_data, [search_count, VIDEO_SEARCH_MAX].min)
       parsed_data.result().each_with_index do |result, i|
-        puts "\n##{i+1}", "#{result[:link]}", "#{result[:image]}", "#{result[:title]}", "#{result[:description]}"
+        puts "\n##{i+1}\n #{result[:link]}\n #{result[:title]}\n #{result[:duration]}\n #{result[:views]}"
       end
       print_count_over(search_count, VIDEO_SEARCH_MAX, 'videos')
     end

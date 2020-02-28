@@ -1,13 +1,9 @@
 # frozen_string_literal: true
-require_relative './parse_common.rb'
+require_relative './parse.rb'
 
-class ParseImages
-  attr_accessor :page
-  attr_reader :count, :raw_data
-
+class ParseImages < Parse
   def initialize(raw_data, count)
-    @raw_data = raw_data
-    @count = count
+    super
   end
 
   def result
@@ -19,9 +15,5 @@ class ParseImages
       datas_list[i][:image] = common_page.css('img')[i]['src']
     end
     datas_list
-  end
-
-  def page
-    @page ||= Nokogiri::HTML(raw_data)
   end
 end
