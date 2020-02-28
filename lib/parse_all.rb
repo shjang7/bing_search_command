@@ -1,15 +1,11 @@
 # frozen_string_literal: true
-require_relative './parse_common.rb'
+require_relative './parse.rb'
 
-class ParseAll
-  attr_accessor :page
-  attr_reader :count, :raw_data
-
+class ParseAll < Parse
   IMAGE_LOCATION = 3
 
   def initialize(raw_data, count)
-    @raw_data = raw_data
-    @count = count
+    super
   end
 
   def result
@@ -17,10 +13,6 @@ class ParseAll
     datas = text_result
 
     datas[0...IMAGE_LOCATION] + image_result + datas[IMAGE_LOCATION..-1]
-  end
-
-  def page
-    @page ||= Nokogiri::HTML(raw_data)
   end
 
   private

@@ -16,7 +16,6 @@ class Search
   end
 
   def uri
-    print "#{BASE_URL}#{type_of_search}search?q=#{search_term} \n"
     @uri ||= "#{BASE_URL}#{type_of_search}search?q=#{search_term}"
   end
 

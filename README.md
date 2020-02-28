@@ -31,6 +31,12 @@ $ git clone https://github.com/shjang7/bing_search_command.git
 $ cd bing_search_command
 ```
 
+> Test code working
+
+```
+$ rspec
+```
+
 > Run execution file
 
 ```

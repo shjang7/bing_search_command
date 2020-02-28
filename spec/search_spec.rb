@@ -1,18 +1,28 @@
-require 'rest-client';
+# frozen_string_literal: true
 require './lib/search.rb';
 
 describe Search do
-  let(:base_url) { 'https://www.bing.com/' }
-  let(:test_term) { 'ceramic' }
-  let(:new_search) { Search.new(test_term) }
+  let(:term) { 'ceramic' }
+  let(:uri) { "https://www.bing.com/search?q=#{term}" }
+  let(:search) { lambda { |type| Search.new(term, type) }}
+  let(:all_search) { search['all'] }
 
   context '#initialize' do
-    it { expect(new_search.search_term).to eql(test_term) }
-    it { expect(new_search.uri).to eql("#{base_url}search?q=#{test_term}") }
+    it { expect(all_search.search_term).to eql(term) }
+  end
+
+  context '#uri' do
+    it { expect(all_search.uri).to eql(uri) }
   end
 
   context '#data' do
-    it { expect(new_search.data.code).to eq(200) }
-    it { expect(new_search.data).to be_kind_of(RestClient::Response) }
+    it { expect(all_search.data.code).to eq(200) }
+    it { expect(all_search.data).to be_kind_of(RestClient::Response) }
+  end
+
+  context '#type_of_search' do
+    it { expect(search['all'].type_of_search).to eq('') }
+    it { expect(search['images'].type_of_search).to eq('images/') }
+    it { expect(search['videos'].type_of_search).to eq('videos/') }
   end
 end
